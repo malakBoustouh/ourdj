@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
-class User extends Authenticatable
+use Tymon\JWTAuth\Contracts\JWTSubject;
+class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, HasApiTokens;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +17,17 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password',
     ];
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 
+    public function getJWTIdentifier(){
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims(){
+        return [];
+    }
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -26,11 +36,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    public function socialAccounts(){
-        return $this->hasMany('App\SocialAccount');
+    public function posts(){
+        return $this->hasMany(Post::class);
     }
 
-    public function posts(){
-        return $this->hasMany('App\Post');
+    public function comments(){
+        return $this->hasMany(Comment::class);
     }
 }

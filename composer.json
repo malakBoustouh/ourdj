@@ -11,7 +11,8 @@
         "laravel/passport": "^7.5",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.8",
-        "spatie/laravel-permission": "^2.38"
+        "spatie/laravel-permission": "^2.38",
+        "tymon/jwt-auth": "1.*"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
