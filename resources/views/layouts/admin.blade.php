@@ -32,6 +32,8 @@
             border-radius: 50%;
         }
     </style>
+<!-- confirm delete!-->
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -139,36 +141,17 @@
                                 </li>
                             </ul>
 
-                        <li class="nav-item has-treeview ">
-                            <a href="#" class="nav-link @if($segment=='chart' )active @endif">
+                        <li class="nav-item">
+                            <a href="{{route('chart.index')}}" class="nav-link @if($segment=='chart' )active @endif">
                                 <i class="nav-icon fa fa-pie-chart"></i>
                                 <p>
                                     احصائيات
                                     <i class="right fa fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item ">
-                                    <a href="{{route('admin.chart.index')}}" class="nav-link @if($segment=='chart') active @endif">
-                                        <i class="fa fa-circle-o nav-icon"></i>
-                                        <p>سنة 2020</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/charts/flot.html" class="nav-link">
-                                        <i class="fa fa-circle-o nav-icon"></i>
-                                        <p>سنة 2019</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/charts/inline.html" class="nav-link">
-                                        <i class="fa fa-circle-o nav-icon"></i>
-                                        <p>سنة 2018</p>
-                                    </a>
-                                </li>
-                            </ul>
+
                         <li class="nav-item">
-                            <a href="{{route('admin.applications.index')}}" name="mawaide" class="nav-link  @if($segment=='applications') active @endif" >
+                            <a href="{{route('admin.applications.index')}}"  class="nav-link  @if($segment=='applications') active @endif" >
                                 <i class="fa fa-caret-square-o-right"></i>
                                 <p>
                                     التطبيقات

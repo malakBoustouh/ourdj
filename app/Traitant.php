@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Traitant extends Model
 {
     protected $primaryKey = "id_traitant";
-    protected $fillable=['nom','prenom','dateNaissance','motpass','email','numTel','address','specialiste','image'];
+    protected $fillable=['nom','user_id','prenom','dateNaissance','motpass','email','numTel','address','specialiste','image'];
 
     #region relationship:many to many
     public function seancetraitements(){
@@ -16,4 +16,8 @@ class Traitant extends Model
     public function notificationtraits(){
         return $this->hasMany('App\Notificationtrait');
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
 }

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Traitant;
 
+use App\Carsspecialiste;
 use App\Diagnostic;
 use App\Enfant;
 use App\Parentt;
 use App\Specialiste;
 use App\Traitant;
 use App\Seancetraitement;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,6 +23,10 @@ class SeancetraitementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
 
@@ -63,31 +69,29 @@ class SeancetraitementController extends Controller
      */
     public function store(Request $request ,Seancetraitement $seancetraitement)
     {
-     /*   $this->validate($request,
+       $this->validate($request,
             array(
-                'image'=>'required',
-                'prenom'=>'required',
-                'nom'=>'required',
-                'dateNaissance'=>'required',
-                'motpass'=>'required',
-                'email'=>'required|email',
-                'numTel'=>'required',
-                'address'=>'required',
-                'specialiste'=>'required')
-        );*/
+                'enfant_id'=>'required',
+                'enf_id'=>'required',
+                'duree'=>'required'
+                )
+        );
 
        // dd($request->all());
         $nomid=$request->enf_id;
         $prenomid=$request->enfant_id;
         if($nomid==$prenomid){
         $seancetraitement->enfant_id= $prenomid;
-            $nomTraitant = explode(' ',  Auth::user()->name, 2); // Restricts it to only 2 values, for names like Billy Bob Jones
-            $last_name = $nomTraitant[0];
-            $first_name = !empty($nomTraitant[1]) ? $nomTraitant[1] : '';
-            $nomSpecialiste = Traitant::where('prenom', 'LIKE', '%'.$first_name.'%')
-                ->Where('nom', 'LIKE', '%'.$last_name.'%')
-                ->first();
-            $idTrait= $nomSpecialiste->id_traitant;
+            //$nomTraitant = explode(' ',  Auth::user()->name, 2); // Restricts it to only 2 values, for names like Billy Bob Jones
+           // $last_name = $nomTraitant[0];
+           // $first_name = !empty($nomTraitant[1]) ? $nomTraitant[1] : '';
+            $nomTraitant= Auth::user()->name;
+            $nomSpecialiste = User::where('name', 'LIKE', '%'.$nomTraitant.'%') ->first();
+
+            $iduser= $nomSpecialiste->id;
+            $traitant = Traitant::join('users', 'users.id', '=', 'traitants.user_id')->where('traitants.user_id',$iduser)->first();
+            $idTrait= $traitant->id_traitant;
+
             $seancetraitement->traitant_id= $idTrait;
             $seancetraitement->dateTraite=$request->dateTraite;
             $seancetraitement->methode=$request->methode;
@@ -105,12 +109,14 @@ class SeancetraitementController extends Controller
             }
 
             $seancetraitement->duree=$request->duree;
+            $seancetraitement->note=$request->note;
             if($request->description==""){
                 $seancetraitement->description="لايوجد";
 
             }else  {
                 $seancetraitement->description=$request->description;
             }
+
             $seancetraitement->save();
             return redirect()->route('pagetraitant.show2',$seancetraitement->enfant_id)->with('success','تمت عملية الاضافة بنجاح ');
 
@@ -232,10 +238,12 @@ class SeancetraitementController extends Controller
         $seancetraitement = Seancetraitement::join('enfants', 'enfants.id_enfant', '=', 'seancetraitements.enfant_id')->where('seancetraitements.enfant_id',$id_enfant)->first();
         $diagnostic = Diagnostic::join('enfants', 'enfants.id_enfant', '=', 'diagnostics.enfant_id')->where('diagnostics.enfant_id',$id_enfant)->first();
         $parentt= Parentt::join('enfants', 'enfants.id_enfant', '=', 'parentts.enfant_id')->where('parentts.enfant_id',$id_enfant)->first();
+        $firs=$parentt->id_parentt;
+        $parent = Parentt::join('enfants', 'enfants.id_enfant', '=', 'parentts.enfant_id')->where('parentts.id_parentt',$firs+1)->first();
         $arr['traitants']=Traitant::all();
-        $arr['specialistes']=Specialiste::all();
+        $arr['carsspecialistes']=Carsspecialiste::all();
         $arr['parentts']=Parentt::all();
-        return view('pagetraitant.seancetraitements.show2')->with(compact('enfant','parentt','seancetraitement','diagnostic','specialiste','age','dateActuelle'))->with($arr);
+        return view('pagetraitant.seancetraitements.show2')->with(compact('enfant','parent','parentt','seancetraitement','diagnostic','specialiste','age','dateActuelle'))->with($arr);
     }
 
 

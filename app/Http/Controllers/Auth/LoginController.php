@@ -32,7 +32,7 @@ protected function redirectTo(){
         return '/admin';
     }
     else{
-        if(Auth::user()->usertype=='carsspecialiste'){
+        if(Auth::user()->usertype=='specialiste'){
             return('/pagecarsspecialiste');
         }
         else{

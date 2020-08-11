@@ -74,7 +74,7 @@
                                             <ul class="list-group list-group-unbordered mb-3">
                                                 <li class="list-group-item">
                                                     @if($parentt->enfant_id==$enfant->id_enfant)
-                                                        <b>الأب:</b> <a>{{$parentt->prenomp}} {{$parentt->nomp}}</a>
+                                                        <b>الأب:</b> <a>{{$parentt->prenomp}} </a>
                                                     @endif
                                                 </li>
                                                 <li class="list-group-item">
@@ -83,8 +83,8 @@
                                             </ul>
 
                                             <div class="text-center">
-                                                @if($parentt->img)
-                                                    <img src="{{ asset('storage/familles/'.$parentt->img) }}" class="profile-parents-img img-fluid img-circle" >
+                                                @if($parent->img)
+                                                    <img src="{{ asset('storage/familles/'.$parent->img) }}" class="profile-parents-img img-fluid img-circle" >
                                                 @else
                                                     <img  class="profile-parents-img img-fluid img-circle"
                                                           src="{{asset('dist/img/mom.jpg')}}"
@@ -94,10 +94,10 @@
                                             <p></p>
                                             <ul class="list-group list-group-unbordered mb-3">
                                                 <li class="list-group-item">
-                                                    <b>الأم:</b> <a>{{$parentt->prenomp}} {{$parentt->nomp}}</a>
+                                                    <b>الأم:</b> <a>{{$parent->prenomp}} {{$parent->nomp}}</a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>رقم الهاتف:</b> <a>{{$parentt->numTel}}</a>
+                                                    <b>رقم الهاتف:</b> <a>{{$parent->numTel}}</a>
                                                 </li>
                                             </ul>
 
@@ -197,9 +197,10 @@
                                                             <th>المختص(ة)</th>
                                                             <th>المدة</th>
                                                             <th>الطريقة المستعملة</th>
+                                                            <th>التقييم</th>
                                                             <th>التعليق</th>
                                                             <th>الوصف</th>
-                                                            <th>نصائح للوالدين</th>
+
 
 
 
@@ -218,9 +219,10 @@
 
                                                                         <td>{{ $s->duree}}</td>
                                                                         <td>{{ $s->methode}}</td>
+                                                                        <td>{{ $s->note}}</td>
                                                                         <td>{{ $s->commentaire}}</td>
                                                                         <td>{{ $s->description}}</td>
-                                                                        <td> {{ $s->conseils}}</td>
+
 
 
                                                                     </tr>
@@ -257,7 +259,7 @@
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text"><i class="fa fa-user"></i></span>
                                                                         </div>
-                                                                        <select   class="form-control" style="width: 324.56px" id="named" name="enfant_id" >
+                                                                        <select   class="form-control" style="width: 325px" id="named" name="enfant_id" >
                                                                             <option ></option>
 
                                                                             <option  value="{{$enfant->id_enfant}}" selected readonly>{{$enfant->prenom}}</option>
@@ -307,7 +309,7 @@
                                                                         <div class="input-group-prepend">
                                                                             <span class="input-group-text"><i class="fa fa-user"></i></span>
                                                                         </div>
-                                                                        <select   style="width: 324.56px" id="nameid" name="enf_id" >
+                                                                        <select   style="width: 325px" id="nameid" name="enf_id" >
                                                                             <option></option>
                                                                             <option value="{{$enfant->id_enfant}}" selected readonly>{{$enfant->nom}}</option>
 
@@ -324,6 +326,20 @@
 
                                                                         </div>
                                                                         <input type="text" class="form-control" name="duree">
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+
+                                                                    <label> التقييم :</label>
+
+                                                                    <div class="input-group">
+                                                                        <select class="form-control" name="note">
+                                                                            <option note="لايوجد تحسن">لايوجد تحسن</option>
+                                                                            <option note="متوسط">متوسط</option>
+                                                                            <option note="جيد">جيد</option>
+                                                                            <option note="ممتاو">ممتاو</option>
+                                                                        </select>
 
                                                                     </div>
                                                                 </div>

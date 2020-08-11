@@ -21,7 +21,7 @@ class CarsspecialisteController extends Controller
     }
     public function index()
     {
-        $arr['carsspecialistes']=Carsspecialiste::paginate(5);
+        $arr['carsspecialistes']=Carsspecialiste::simplePaginate(5);
         return view('admin.carsSpecialistes.index')->with($arr)->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -59,28 +59,27 @@ class CarsspecialisteController extends Controller
         {
             $file = '';
         }
-        $specialiste->image=$file;
-        $specialiste->prenom=$request->prenom;
-        $specialiste->nom=$request->nom;
-        $specialiste->dateNaissance=$request->dateNaissance;
-        $specialiste->motpass=Hash::make($request->motpass);
-        $specialiste->email=$request->email;
-        $specialiste->numTel=$request->numTel;
-        $specialiste->address=$request->address;
-        $specialiste->specialite=$request->specialite;
-
-
         $names[0] = $request->nom;
         $names[1] = $request->prenom ;
         $user->name= implode(" ", $names);
         $user->image=$file;
         $user->email=$request->email;
         $user->password=Hash::make($request->motpass);
-       // $user->password=$request->motpass;
-
         $user->usertype="specialiste";
-        $specialiste->save();
         $user->save();
+        $requestData=$request->all();
+        for($i=1;$i<=1;$i++) {
+            $specialiste = new Carsspecialiste();
+        $specialiste->image=$file;
+        $specialiste->prenom=$request->prenom;
+        $specialiste->nom=$request->nom;
+        $specialiste->dateNaissance=$request->dateNaissance;
+        $specialiste->motpass=$request->motpass;
+        $specialiste->email=$request->email;
+        $specialiste->numTel=$request->numTel;
+        $specialiste->address=$request->address;
+        $specialiste->specialite=$request->specialite;
+            $user->carsspecialistes()->save( $specialiste);}
         //Session::flash('success', 'تمت عملية الاضافة بنجاح ');
         return redirect()->route('admin.carsSpecialistes.index')->with('success','تمت عملية الاضافة بنجاح ');
 
@@ -125,7 +124,8 @@ class CarsspecialisteController extends Controller
     public function update(Request $request,$carsspecialiste)
     {
         $carsspecialiste = Carsspecialiste::find($carsspecialiste);
-
+        $UserTraitant=$carsspecialiste->user_id;
+        $user3=User::find($UserTraitant);
         if(isset($request->image) && $request->image->getClientOriginalName()){
             $ext =  $request->image->getClientOriginalExtension();
             $file = date('YmdHis').rand(1,99999).'.'.$ext;
@@ -148,7 +148,13 @@ class CarsspecialisteController extends Controller
         $carsspecialiste->numTel=$request->numTel;
         $carsspecialiste->address=$request->address;
         $carsspecialiste->specialite=$request->specialite;
-        $carsspecialiste->save();
+        $names1[0] = $request->prenom;
+        $names1[1] = $request->nom;
+        $user3->image=$file;
+        $user3->name=implode(" ", $names1);
+        $user3->email=$request->email;
+        $user3->password=Hash::make($request->motpass);
+        $carsspecialiste->save();$user3->save();
 
         return redirect()->route('admin.carsSpecialistes.index')->with('success','تمت عملية التعديل بنجاح ');
 
@@ -160,9 +166,13 @@ class CarsspecialisteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id_carsspecialiste)
+    public function destroy(Request $request)
     {
-        Carsspecialiste::destroy($id_carsspecialiste);
+        $traitant = Carsspecialiste::findOrFail($request->id_carsspecialiste);
+        $userTraitant=$traitant->user_id;
+        $Usertraitant =User::findOrFail( $userTraitant);
+        $Usertraitant->delete(); $traitant->delete();
+
         //session()->flash('notif''Succes to save');
         return redirect()->route('admin.carsSpecialistes.index')->with('success','تمت عملية الحذف بنجاح ');
     }

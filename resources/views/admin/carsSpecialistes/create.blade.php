@@ -110,7 +110,8 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fa fa-phone"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" name="numTel">
+                                            <input type="tel" id="phone" class="form-control" name="numTel" placeholder="0612345678" pattern="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" >
+
 
                                         </div>
                                     </div>

@@ -29,7 +29,8 @@ Route::get('/admin/interfaceaddspecialiste/addspecialiste', 'AddspecialisteContr
 //Route::group(['middleware'=>['auth','admin']],function (){});
 
 Route::get('/admin', 'HomeController@index')->name('home');
-Route::resource('/admin/chart', 'Admin\CharrtController',['as'=>'admin']);
+//Route::resource('/admin/chart', 'Admin\CharrtController',['as'=>'admin']);
+Route::get('/admin/chart', 'Admin\CharrtController@index',['as'=>'admin'])->name('chart.index');
 Route::resource('/admin/traitants','Admin\TraitantsController',['as'=>'admin']);
 Route::resource('/admin/enfants','Admin\EnfantController',['as'=>'admin']);
 Route::get   ('/admin/parentts/{enfant}/edit', 'Admin\EnfantController@edit')->name('admin.enfants.edit');
@@ -46,8 +47,9 @@ Route::get('/pagecarsspecialiste/diagnostics/create', 'carsSpecialiste\Diagnosti
 Route::get('/pagecarsspecialiste/diagnostics/affiche/{id_enfant}', 'CarsSpecialiste\DiagnosticController@affiche')->name('pagecarsspecialiste.affiche');
 Route::get('/pagecarsspecialiste/diagnostics/show/{id}', 'carsSpecialiste\DiagnosticController@show')->name('pagecarsspecialiste.show');
 Route::post('/pagecarsspecialiste/diagnostics/storeAffiche', 'carsSpecialiste\DiagnosticController@storeAffiche')->name('pagecarsspecialiste.storeAffiche');
+//Route::get('/pagecarsspecialiste/diagnostics/action', 'carsSpecialiste\DiagnosticController@action')->name('live_search.action');
+//Route::get('/pagecarsspecialiste/diagnostics/pdf', 'carsSpecialiste\DiagnosticController@pdf');
 Route::resource('/pagecarsspecialiste/diagnostics','carsSpecialiste\DiagnosticController',['as'=>'pagecarsspecialiste']);
-
 
 /////////////////////////////////////////////////////////////////////////////////////////
 /// ///////////////////////////////pour TRAITANT////////////////////////////////////////

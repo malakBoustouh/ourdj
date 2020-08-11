@@ -8,12 +8,15 @@ namespace App\Http\Controllers\Api;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Hash;
     use Tymon\JWTAuth\Facades\JWTAuth;
-
+    use Symfony\Component\HttpKernel\Exception\HttpException;
+//zitha
+    use Tymon\JWTAuth\Exceptions\JWTException;
+    use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 class AuthController extends Controller
 {
     public function login(Request $request){
 
-        $creds = $request->only(['email','password']);
+       /* $creds = $request->only(['email','password']);
 
         if(!$token=auth()->attempt($creds)){
 
@@ -21,14 +24,47 @@ class AuthController extends Controller
 
 
                 'success' => false,
-                'message' => 'invalid credintials'
+                'result' => $token
             ]);
         }
         return response()->json([
             'success' =>true,
             'token' => $token,
             'user' => Auth::user()
-        ]);
+        ]);*/
+        $credentials = $request->only(['email', 'password']);
+
+        try {
+            $token = Auth::guard()->attempt($credentials);
+
+            if(!$token) {
+                throw new AccessDeniedHttpException();
+            }
+
+        } catch (JWTException $e) {
+            throw new HttpException(500);
+        }
+
+        return response()
+            ->json([
+                'status' => 'ok',
+                'token' => $token,
+                'expires_in' => Auth::guard()->factory()->getTTL() * 60
+            ]);
+
+      /*$input=$request->all();
+        if(!$token=JWTAuth::attempt($input)){
+
+            return response()->json([
+
+                'result' => 'created with succes'
+            ]);
+        }
+        return response()->json([
+
+            'result' => $token
+
+        ]);*/
     }
 
 

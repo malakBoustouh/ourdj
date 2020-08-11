@@ -127,45 +127,50 @@ return [
     'custom' => [
         /* information de traitant*/
         'email'=> [
-            'required' => ' البريد الالكتروني مطلوب',
+            'required' => 'يرجى ادخال البريد الالكتروني ',
             'email'=>'طريقة كتابة البريد الالكتروني خاطئة'
         ],
         'address'=>['required' => ' العنوان مطلوب'],
-
+        //************************seancetraitement
+        'duree'=>['required' => ' يرجى ادخال المدة'],
+        'enfant_id'=>['required'=>'يرجى ادخال اللقب '],
+        'enf_id'=>['required'=>'يرجى ادخال الاسم '],
+        //***********************seancetraitement
         'email1'=> [
-            'required' => ' البريد الالكتروني مطلوب',
+            'required' => 'يرجى ادخال  البريد الالكتروني ',
             'email'=>'طريقة كتابة البريد الالكتروني خاطئة'
         ],'email2' => [
-            'required' => ' البريد الالكتروني مطلوب',
+            'required' => 'يرجى ادخال  البريد الالكتروني ',
             'email'=>'طريقة كتابة البريد الالكتروني خاطئة'
         ],
-
+        'prenom'=>['required'=>'يرجى ادخال اللقب '],
+        'autismresult'=>['required'=>'يرجى انتطار النتيجة'],
          'image'=>[
-             'required'=>'الصورة مطلوبة',
+             'required'=>'يرجى ادخال الصورة ',
              'image'=>'يمنع هذا النوع من الصور'
              ],
         /* information de traitant*/
 
-        'prenom1'=>['required'=>'اللقب مطلوب'],'prenom2'=>['required'=>'اللقب مطلوب'],
-           'nom'=>['required'=>'الاسم مطلوب'],'nom1'=>['required'=>'الاسم مطلوب'],'nom2'=>['required'=>'الاسم مطلوب'],
-            'dateNaissance'=>['required'=>'تاريخ الميلاد مطلوب'],'dateNaissance1'=>['required'=>'تاريخ الميلاد مطلوب'],'dateNaissance2'=>['required'=>'تاريخ الميلاد مطلوب'],
-             'motpass'=>['required'=>'الرقم السري مطلوب'],
-        'motpass1'=>['required'=>'الرقم السري مطلوب'],
-        'motpass2'=>['required'=>'الرقم السري مطلوب'],
-        'password'=>['required'=>'الرقم السري مطلوب'],
-                'numTel'=>['required'=>'رقم الهاتف مطلوب'],
-                'specialiste'=>['required'=>'التخصص مطلوب'],
-        'specialite'=>['required'=>'التخصص مطلوب'],
-        'imagespecialiste'=>['required'=>'الصورة مطلوبة',
+        'prenom1'=>['required'=>'يرجى ادخال اللقب '],'prenom2'=>['required'=>'يرجى ادخال اللقب '],
+           'nom'=>['required'=>'يرجى ادخال الاسم '],'nom1'=>['required'=>'يرجى ادخال الاسم '],'nom2'=>['required'=>'يرجى ادخال الاسم '],
+            'dateNaissance'=>['required'=>'يرجى ادخال تاريخ الميلاد '],'dateNaissance1'=>['required'=>'يرجى ادخال تاريخ الميلاد '],'dateNaissance2'=>['required'=>'يرجى ادخال تاريخ الميلاد '],
+             'motpass'=>['required'=>'يرجى ادخال الرقم السري '],
+        'motpass1'=>['required'=>'يرجى ادخال الرقم السري '],
+        'motpass2'=>['required'=>'يرجى ادخال الرقم السري '],
+        'password'=>['required'=>'يرجى ادخال الرقم السري '],
+                'numTel'=>['required'=>'يرجى ادخال رقم الهاتف '],
+                'specialiste'=>['required'=>'يرجى ادخال التخصص '],
+        'specialite'=>['required'=>'يرجى ادخال التخصص '],
+        'imagespecialiste'=>['required'=>'يرجى ادخال الصورة ',
             'image'=>'يمنع هذا النوع من الصور'],
-'imageChild'=>['required'=>'صورة الطفل مطلوبة',
+'imageChild'=>['required'=>'يرجى ادخال صورة الطفل ',
         'image'=>'يمنع هذا النوع من الصور'],
-        'imageMother1'=>['required'=>'صورة الام مطلوبة',
-            'image'=>'يمنع هذا النوع من الصور'], 'imageMother2'=>['required'=>'صورة الاب مطلوبة',
+        'imageMother1'=>['required'=>'يرجى ادخال صورة الام ',
+            'image'=>'يمنع هذا النوع من الصور'], 'imageMother2'=>['required'=>'يرجى ادخال صورة الاب ',
             'image'=>'يمنع هذا النوع من الصور'],
-        'lieuNaissannce'=>['required'=>'مكان الميلاد مطلوب'], 'numTel1'=>['required'=>'رقم الهاتف مطلوب'],'numTel2'=>['required'=>'رقم الهاتف مطلوب'],'lieuTravail1'=>['required'=>'مكان العمل مطلوب'],'lieuTravail2'=>['required'=>'مكان العمل مطلوب'],
-        'wilaya'=>['required'=>'  عنوان السكن مطلوب'], 'commune'=>['required'=>'  عنوان السكن مطلوب'],'domicile'=>['required'=>'  عنوان السكن مطلوب'],
-        'niveauEduc1'=>['required'=>' مستوى الدراسي مطلوب'],'niveauEduc2'=>['required'=>' مستوى الدراسي مطلوب']
+        'lieuNaissannce'=>['required'=>'يرجى ادخال مكان الميلاد '], 'numTel1'=>['required'=>'يرجى ادخال رقم الهاتف '],'numTel2'=>['required'=>'يرجى ادخال رقم الهاتف '],'lieuTravail1'=>['required'=>'يرجى ادخال مكان العمل '],'lieuTravail2'=>['required'=>'يرجى ادخال مكان العمل '],
+        'wilaya'=>['required'=>'يرجى ادخال عنوان السكن '], 'commune'=>['required'=>'يرجى ادخال عنوان السكن '],'domicile'=>['required'=>'يرجى ادخال عنوان السكن'],
+        'niveauEduc1'=>['required'=>'يرجى ادخال مستوى الدراسي'],'niveauEduc2'=>['required'=>'يرجى ادخال  مستوى الدراسي ']
     ],
 
 

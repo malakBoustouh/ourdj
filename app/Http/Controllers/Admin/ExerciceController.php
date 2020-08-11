@@ -18,7 +18,7 @@ class ExerciceController extends Controller
     }
     public function index()
     {
-        $arr['exercices']=Exercice::paginate(5);;
+        $arr['exercices']=Exercice::simplePaginate(5);
 
         return view('admin.applications.index')->with($arr);
     }

@@ -3,11 +3,13 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
+    use Notifiable,HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -39,8 +41,19 @@ class User extends Authenticatable implements JWTSubject
     public function posts(){
         return $this->hasMany(Post::class);
     }
+    public function traitants(){
+        return $this->hasMany(Traitant::class);
+    }
+    public function carsspecialistes(){
+        return $this->hasMany(Carsspecialiste::class);
+    }
 
     public function comments(){
         return $this->hasMany(Comment::class);
     }
+    public function parentts(){
+        return $this->hasMany(Parentt::class);
+    }
+
+
 }

@@ -15,7 +15,7 @@
         </div>
         <!-- /.content-header -->
         <!-- Main content -->
-        <form  method="post" action="{{route('admin.enfants.update',$parentt->id_parentt)}}" enctype="multipart/form-data" >
+        <form  method="post" action="{{route('admin.enfants.update',$enfant->id_enfant)}}" enctype="multipart/form-data" >
             @method('PUT')
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <section class="content">

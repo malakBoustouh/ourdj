@@ -8,7 +8,7 @@ class Parentt extends Model
 {
     protected $primaryKey = "id_parentt";
 
-    protected $fillable=['enfant_id','nom','prenom','dateNaissance','motpass','numTel','email','niveauEduc','lieuTravail'];
+    protected $fillable=['enfant_id','user_id','nom','prenom','dateNaissance','motpass','numTel','email','niveauEduc','lieuTravail'];
     #region relationship:one to many
     public function enfant(){
        return  $this->belongsTo('App\Enfant',"enfant_id");
@@ -20,6 +20,9 @@ class Parentt extends Model
 
     public function remarques(){
         return $this->hasMany('App\Remarque');
-
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
 }

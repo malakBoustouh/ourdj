@@ -6,25 +6,7 @@
 
     <title>   تشخيص @yield('title')</title>
 
-    <script src="{{ asset('http://code.jquery.com/jquery-latest.min.js')}}"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $(".minimal").click(function(event) {
-                var total = 0;
-                $(".minimal:checked").each(function() {
-                    total += parseFloat($(this).val());
-                });
-
-                if (total == 0) {
-                    $('#points').val('');
-                } else {
-                    $('#points').val(total);
-                }
-            });
-
-        });
-    </script>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -40,13 +22,19 @@
     <script src="{{ asset('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js') }}"></script>
     <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js') }}"></script>
     <script src="{{ asset('https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js') }}"></script>
+    <link href="{{ asset('https://fonts.googleapis.com/css2?family=Tajawal&display=swap')}}" rel="stylesheet">
 
     <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css')}}">
-
-
     <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js')}}"></script>
 
-<!-- affiche kan-->
+    <!-- CLICKABLE -->
+    <script src="{{ asset('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js') }}"></script>
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js') }}"></script>
+    <script src="{{ asset('https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js') }}"></script>
+
+    <!-- affiche search-->
+
+
 
     <!-- affiche kan-->
 
@@ -73,12 +61,12 @@
         <!-- Sidebar -->
         <div class="sidebar" style="direction: ltr">
             <div style="direction: rtl">
+
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         @if(\Illuminate\Support\Facades\Auth::user()->image)
                             <img src="{{ asset('storage/specialistes/'.\Illuminate\Support\Facades\Auth::user()->image) }}" alt="Avatar" style="width:40px"/>
-                            <a href="#">عبر النت <i class="fa fa-circle text-success"></i></a>
                         @else
                         <img src="{{ asset('dist/img/spec.png') }}">
                             @endif
@@ -86,6 +74,7 @@
 
                     <div class="info">
                         <a href="#" class="d-block">{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
+                        <a href="#"><i class="fa fa-circle text-success"></i>عبر النت </a>
                     </div>
                 </div>
 
@@ -99,7 +88,7 @@
 
                         ?>
                         <li class="nav-item has-treeview menu-open">
-                            <a href="{{route('pagespecialiste')}}" class="nav-link @if(!$segment )active @endif">
+                            <a href="{{route('pagecarsspecialiste')}}" class="nav-link @if(!$segment )active @endif">
                                 <i class="nav-icon fa fa-user-plus"></i>
                                 <p>
                                     تشخيص
@@ -110,7 +99,7 @@
 
 
                         <li class="nav-item has-treeview">
-                            <a href="{{route('pagespecialiste.diagnostics.index')}}" class="nav-link @if($segment=='diagnostics') active @endif">
+                            <a href="{{route('pagecarsspecialiste.diagnostics.index')}}" class="nav-link @if($segment=='diagnostics') active @endif">
                                 <i class="nav-icon fa fa-table"></i>
                                 <p>
                                      قائمة الاطفال
@@ -118,7 +107,7 @@
                             </a>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="statistics.html" class="nav-link">
+                            <a href="{{route('chart.index')}}" class="nav-link">
                                 <i class="nav-icon fa fa-pie-chart"></i>
                                 <p>
                                     احصائيات

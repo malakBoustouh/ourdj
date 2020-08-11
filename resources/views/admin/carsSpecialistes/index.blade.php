@@ -8,7 +8,7 @@
     <section class="content">
         <div class="container-fluid">
             <p>
-                <a href="{{route('admin.carsSpecialistes.create')}}" class="btn btn-primary">اضافة فرد جديد</a>
+                <a href="{{route('addspecialiste')}}" class="btn btn-primary">اضافة فرد جديد</a>
             </p>
 
             @if ($message = Session::get('success'))
@@ -43,19 +43,13 @@
                             <td>{{ $c->email}}</td>
                             <td>{{ $c->numTel}}</td>
                             <td>
-                                <form action="{{route('admin.carsSpecialistes.destroy',$c->id_carsspecialiste)}}" method="post">
 
 
                                     <a href="{{route('admin.carsSpecialistes.show',$c->id_carsspecialiste)}}" class="btn  btn-success">عرض</a>
 
                                     <a href="{{route('admin.carsSpecialistes.edit',$c->id_carsspecialiste)}}" class="btn btn-info">تعديل</a>
 
-                                    @method('DELETE')
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-                                    <button href="javascript:void(0)" onclick="$(this).parent().find('form').submit()" class="btn btn-danger">مسح</button>
-
-                                </form>
+                                    <button class="btn btn-danger" data-catid="{{$c->id_carsspecialiste}}" data-toggle="modal" data-target="#delete">مسح</button>
                             </td>
                         </tr>
                     @endforeach
@@ -64,5 +58,33 @@
                 @endif
             </table>
         </div>
+        <div class="modal modal-danger fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-center" style="margin-left: 150px" id="myModalLabel">تأكيد الحذف</h4>
+
+                        <button type="button" class="close" style="margin-right: 185px" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                    </div>
+                    <form action="{{route('admin.carsSpecialistes.destroy','test')}}" method="post">
+                        {{method_field('delete')}}
+                        {{csrf_field()}}
+                        <div class="modal-body">
+                            <p class="text-center">
+                                هل انت متأكد من الحذف؟
+                            </p>
+                            <input type="hidden" name="id_carsspecialiste" id="cat_id" value="">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal">لا, الغاء</button>
+                            <button type="submit" class="btn btn-warning">نعم, حذف</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </section>
 @endsection

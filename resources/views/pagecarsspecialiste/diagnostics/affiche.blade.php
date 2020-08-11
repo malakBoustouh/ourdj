@@ -1,6 +1,46 @@
 @extends('layouts.specialistes')
 @section('title','| ملف الطفل')
 @section('content')
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <script src="{{ asset('http://code.jquery.com/jquery-latest.min.js')}}"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(".minimal").click(function(event) {
+                    var total = 0;
+                    $(".minimal:checked").each(function() {
+                        total += parseFloat($(this).val());
+                    });
+
+                    if (total == 0) {
+                        $('#points').val('');
+                    } else {
+                        $('#points').val(total);
+                    }
+                });
+            });
+        </script>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{ asset('plugins/font-awesome/css/font-awesome.min.css')}}">
+        <!-- Ionicons -->
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('dist/css/bootstrap-rtl.min.css')}}">
+        <!-- template rtl version -->
+        <link rel="stylesheet" href="{{ asset('dist/css/custom-style.css')}}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{ asset('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')}}">
+        <script src="{{ asset('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')}}"></script>
+        <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js')}}"></script>
+        <script src="{{ asset('https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js')}}"></script>
+        <link href="{{ asset('https://fonts.googleapis.com/css2?family=Tajawal&display=swap')}}" rel="stylesheet">
+
+        <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css')}}">
+        <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js')}}"></script>
+    </head>
 
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -149,11 +189,11 @@
                                                             <p>{{ $message }}</p>
                                                         </div>
                                                     @endif
-                                                        @if ($message = Session::get('succe'))
-                                                            <div class="alert alert-danger" role="alert">
-                                                                <p>{{ $message }}</p>
-                                                            </div>
-                                                        @endif
+                                                    @if ($message = Session::get('succe'))
+                                                        <div class="alert alert-danger" role="alert">
+                                                            <p>{{ $message }}</p>
+                                                        </div>
+                                                    @endif
                                                     <table class="table table-hover">
                                                         <tr>
                                                             <th>التاريخ</th>
@@ -165,12 +205,10 @@
                                                             @foreach($diagnostics as $h   )
                                                                 @if($enfant->id_enfant==$h->enfant_id)
                                                                     <tr   data-href="{{route('pagecarsspecialiste.show',$h->id)}}"  style="cursor: pointer;">
-                                                                        <td>{{$h->date}}</td>
+                                                                        <td>{{$h->dateDiagnostic}}</td>
                                                                         @foreach($carsspecialistes as $t   )
                                                                             @if($h->carsspecialiste_id==$t->id_carsspecialiste)
                                                                                 <td value="{{$t->id_carsspecialiste}}">{{'الدكتور(ة)'}} {{ $t->prenom}} {{ $t->nom}}  </td>
-
-
                                                                                 <td  value="{{$t->id_carsspecialiste}}">{{'الدكتور(ة)'}} {{ $t->prenom}} {{ $t->nom}}  </td>
                                                                             @endif
                                                                         @endforeach
@@ -229,27 +267,13 @@
                                                                                     <select   class="form-control" style="width: 319px" id="named" name="enfant_id" >
                                                                                         <option ></option>
                                                                                         <option  value="{{$enfant->id_enfant}}" selected readonly>{{$enfant->prenom}} {{$enfant->nom}}</option>
-                                                                                    </select>
-
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group">
-
-                                                                                <label>تاريخ الميلاد  :</label>
-
-                                                                                <div class="input-group">
-                                                                                    <div class="input-group-prepend">
-                                                                                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                                                                                    </div>
-                                                                                    <select   class="form-control" style="width:314px" id="birthday" name="enfa_id" >
-                                                                                        <option ></option>
-
-                                                                                        <option  value="{{$enfant->id_enfant}}" selected readonly>{{$enfant->dateNaissance}}</option>
+                                                                                        <option id="birthday" value="{{$enfant->dateNaissance}}" hidden ></option>
 
                                                                                     </select>
 
                                                                                 </div>
                                                                             </div>
+
                                                                             <div class="form-group">
 
                                                                                 <label> المشرفة  :</label>
@@ -262,7 +286,7 @@
                                                                                     <select   style="width:314px" id="carsspecialiste_id" name="trait" >
                                                                                         <option ></option>
                                                                                         @foreach($carsspecialistes as $speciale)
-                                                                                            <option  value="{{$carsspecialiste->id_carsspecialiste}}">{{$speciale->nom}} {{$speciale->prenom}}</option>
+                                                                                            <option  value="{{$speciale->id_carsspecialiste}}">{{$speciale->nom}} {{$speciale->prenom}}</option>
                                                                                         @endforeach
                                                                                     </select>
                                                                                 </div>
@@ -1538,8 +1562,8 @@
                                             </div>
 
                                         </div></div></div>
+                            </div>
                         </div>
-                    </div>
                     </div></div> </div></section></div>
     <!-- /.content -->
 

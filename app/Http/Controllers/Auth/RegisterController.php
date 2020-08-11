@@ -36,7 +36,7 @@ class RegisterController extends Controller
         }
         else{
             if(Auth::user()->usertype=='specialiste'){
-                return('/pagespecialiste');
+                return('/pagecarsspecialiste');
             }
             else{
                 if(Auth::user()->usertype=='traitant'){

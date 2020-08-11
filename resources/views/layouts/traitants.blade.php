@@ -58,13 +58,13 @@
                     <div class="image">
                         @if(\Illuminate\Support\Facades\Auth::user()->image)
                             <img src="{{ asset('storage/traitants/'.\Illuminate\Support\Facades\Auth::user()->image) }}"  alt="Avatar" style="width:40px"/>
-                            <a href="#">عبر النت <i class="fa fa-circle text-success"></i></a>
                         @else
                         <img src="{{ asset('dist/img/admin.png') }}">
                         @endif
                     </div>
                     <div class="info">
                         <a href="#" class="d-block" >{{\Illuminate\Support\Facades\Auth::user()->name}}</a>
+                        <a href="#"><i class="fa fa-circle text-success"></i>عبر النت </a>
                     </div>
                 </div>
 

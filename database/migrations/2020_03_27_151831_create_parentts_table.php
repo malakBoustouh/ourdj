@@ -16,6 +16,7 @@ class CreateParenttsTable extends Migration
         Schema::create('parentts', function (Blueprint $table) {
             $table->increments('id_parentt');
             $table->unsignedBigInteger('enfant_id');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('enfant_id')->references('id_enfant')->on('enfants')->onDelete('cascade');
             $table->string('nomp');
             $table->string('prenomp');
@@ -27,6 +28,8 @@ class CreateParenttsTable extends Migration
             $table->string('lieuTravail');
             $table->string('img');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')
+                ->on('users')->onDelete('cascade');
         });
     }
 

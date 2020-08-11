@@ -21,10 +21,11 @@ class CreateSeancetraitementsTable extends Migration
             $table->foreign('traitant_id')->references('id_traitant')->on('traitants')->onDelete('cascade');
             $table->Date('dateTraite');
             $table->text('duree');
-            $table->text('commentaire');
+            $table->text('commentaire')->nullable();
             $table->String('methode');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->text('conseils');
+            $table->String('note');
             $table->timestamps();
         });
     }

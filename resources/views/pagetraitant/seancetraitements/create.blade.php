@@ -40,7 +40,7 @@
                                                 <span class="input-group-text"><i class="fa fa-user"></i></span>
                                             </div>
 
-                                            <select   class="form-control" style="width: 468px" id="named" name="enfant_id" >
+                                            <select   class="form-control" style="width: 461px" id="named" name="enfant_id" >
                                                 <option ></option>
                                                 @foreach($enfants as $enfant)
                                                     <option  value="{{$enfant->id_enfant}}">{{$enfant->prenom}}</option>
@@ -92,7 +92,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fa fa-user"></i></span>
                                             </div>
-                                            <select   style="width: 468px" id="nameid" name="enf_id" >
+                                            <select   style="width: 461px" id="nameid" name="enf_id" >
                                                 <option></option>
                                                 @foreach($enfants as $enf)
                                                     <option value="{{$enf->id_enfant}}">{{$enf->nom}}</option>
@@ -111,6 +111,20 @@
 
                                             </div>
                                             <input type="text" class="form-control" name="duree">
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <label> التقييم :</label>
+
+                                        <div class="input-group">
+                                            <select class="form-control" name="note">
+                                                <option note="لايوجد تحسن">لايوجد تحسن</option>
+                                                <option note="متوسط">متوسط</option>
+                                                <option note="جيد">جيد</option>
+                                                <option note="ممتاو">ممتاو</option>
+                                            </select>
 
                                         </div>
                                     </div>

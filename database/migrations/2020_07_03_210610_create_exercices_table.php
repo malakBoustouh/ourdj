@@ -17,6 +17,7 @@ class CreateExercicesTable extends Migration
             $table->bigIncrements('id_exercice');
             $table->string('titre');
             $table->text('description');
+            $table->integer('maxScore')->nullable();
 
 
             $table->timestamps();

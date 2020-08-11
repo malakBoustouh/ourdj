@@ -105,7 +105,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                             </div>
-                                            <input type="date" class="form-control" value="{{$diagnostic->date}}" name="date">
+                                            <input type="date" class="form-control" value="{{$diagnostic->dateDiagnostic}}" name="date">
 
                                         </div>
                                     </div>
@@ -1275,7 +1275,7 @@
                             <input type="text" name="points" id="points" disabled />
                             <button type="submit" id="degree" class="saveresult" value="Submit"> حفظ</button>
 
-                            {!! Html::linkRoute('pagecarsspecialiste.diagnostics.show', 'الغاء', array($diagnostic->id), array('class' => 'btn btn-danger btn-block','style'=>"width: 158px;padding: 15px 32px;font-size: 19px;text-align: center; margin-right: 185px;  height:  48px;")) !!}
+                            {!! Html::linkRoute('pagecarsspecialiste.diagnostics.show', 'الغاء', array($diagnostic->id), array('class' => 'btn btn-danger btn-block','style'=>"width: 158px;padding: 15px 32px;font-size: 19px;text-align: center; margin-right: 185px;margin-top:2px ;  height:  48px;")) !!}
 
 
                         </div>

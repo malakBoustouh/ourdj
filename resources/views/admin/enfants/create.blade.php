@@ -214,7 +214,8 @@
 
 
                                                     </div>
-                                                    <input type="text" class="form-control"  name="numTel1">
+                                                    <input type="tel" id="phone" class="form-control" name="numTel1" placeholder="0612345678" pattern="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" >
+
 
                                                 </div>
                                             </div>
@@ -262,7 +263,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fa fa-phone"></i></span>
                                                     </div>
-                                                    <input type="text" class="form-control" name="numTel2">
+                                                    <input type="tel" id="phone" class="form-control" name="numTel2" placeholder="0612345678" pattern="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" >
 
                                                 </div>
                                             </div>

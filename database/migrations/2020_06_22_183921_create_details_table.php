@@ -19,7 +19,7 @@ class CreateDetailsTable extends Migration
             $table->foreign('diagnostic_id')->references('id')->on('diagnostics')->onDelete('cascade');
             $table->text('questions');
             $table->text('reponses');
-            $table->text('observations');
+            $table->text('observations')->nullable();
             $table->timestamps();
         });
     }

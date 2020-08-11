@@ -79,7 +79,7 @@
                                             <ul class="list-group list-group-unbordered mb-3">
                                                 <li class="list-group-item">
                                                     @if($parentt->enfant_id==$enfant->id_enfant)
-                                                        <b>الأب:</b> <a> {{$parentt->nomp}} {{$parentt->prenomp}}</a>
+                                                        <b>الأب:</b> <a>  {{$parentt->prenomp}}</a>
                                                     @endif
                                                 </li>
                                                 <li class="list-group-item">
@@ -176,7 +176,8 @@
                                                 {!! Html::linkRoute('admin.enfants.edit', 'تعديل', array($enfant->id_enfant), array('class' => 'btn btn-primary btn-block')) !!}
                                             </div>
                                             <div class="col-sm-6">
-                                                {!! Html::linkRoute('admin.enfants.destroy', 'حذف', array($enfant->id_enfant), array('class' => 'btn btn-danger btn-block')) !!}
+                                                <button class="btn btn-danger" data-catid="{{$enfant->id_enfant}}" style="width: 105px;color: #0b2e13" data-toggle="modal" data-target="#delete">مسح</button>
+
                                             </div>
                                         </div>
                                         <br>
@@ -193,8 +194,36 @@
             </div>
                     </div></div></div></section>
 
+        <div class="modal modal-danger fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-center" style="margin-left: 150px" id="myModalLabel">تأكيد الحذف</h4>
 
-                    <script src="plugins/jquery/jquery.min.js"></script>
+                        <button type="button" class="close" style="margin-right: 185px" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                    </div>
+                    <form action="{{route('admin.enfants.destroy','test')}}" method="post">
+                        {{method_field('delete')}}
+                        {{csrf_field()}}
+                        <div class="modal-body">
+                            <p class="text-center">
+                                هل انت متأكد من الحذف؟
+                            </p>
+                            <input type="hidden" name="id_enfant" id="cat_id" value="">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal">لا, الغاء</button>
+                            <button type="submit" class="btn btn-warning">نعم, حذف</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="plugins/jquery/jquery.min.js"></script>
                     <!-- jQuery UI 1.11.4 -->
                     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
                     <!-- AdminLTE App -->

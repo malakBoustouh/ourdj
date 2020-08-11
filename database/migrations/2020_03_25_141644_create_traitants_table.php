@@ -15,6 +15,7 @@ class CreateTraitantsTable extends Migration
     {
         Schema::create('traitants', function (Blueprint $table) {
             $table->bigIncrements('id_traitant');
+            $table->unsignedBigInteger('user_id');
             $table->string('prenom');
             $table->string('nom');
             $table->Date('dateNaissance');
@@ -24,8 +25,10 @@ class CreateTraitantsTable extends Migration
             $table->string('address');
             $table->string('specialiste');
             $table->string('image');
+
             $table->timestamps();
-        });
+            $table->foreign('user_id')->references('id')
+                ->on('users')->onDelete('cascade');        });
     }
 
     /**

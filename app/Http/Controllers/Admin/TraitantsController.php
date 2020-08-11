@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enfant;
 use App\Traitant;
 use App\User;
 use Carbon\Carbon;
@@ -23,7 +24,7 @@ class TraitantsController extends Controller
     public function index()
     {
 
-        $arr['traitants']=Traitant::paginate(5);
+        $arr['traitants']=Traitant::simplePaginate(5);
         return view('admin.traitants.index')->with($arr)->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -45,41 +46,45 @@ class TraitantsController extends Controller
      */
     public function store(Request $request,Traitant $traitant,User $user)
     {
-        $this->validate($request, array('image'=>'required', 'prenom'=>'required', 'nom'=>'required', 'dateNaissance'=>'required', 'motpass'=>'required', 'email'=>'required|email', 'numTel'=>'required', 'address'=>'required',
+        $this->validate($request, array('image'=>'required',
+                'prenom'=>'required',
+                'nom'=>'required',
+                'dateNaissance'=>'required',
+                'motpass'=>'required', 'email'=>'required|email', 'numTel'=>'required', 'address'=>'required',
                 'specialiste'=>'required')
         );
-
-
-
-        if($request->image->getClientOriginalName()){
-            $ext =  $request->image->getClientOriginalExtension();
-            $file = date('YmdHis').rand(1,99999).'.'.$ext;
-            $request->image->storeAs('public/traitants',$file);
-        }
-        else
-        {
+        if ($request->image->getClientOriginalName()) {
+            $ext = $request->image->getClientOriginalExtension();
+            $file = date('YmdHis') . rand(1, 99999) . '.' . $ext;
+            $request->image->storeAs('public/traitants', $file);
+        } else {
             $file = '';
         }
-        $traitant->image=$file;
-        $traitant->prenom=$request->prenom;
-        $traitant->nom=$request->nom;
-        $traitant->dateNaissance=$request->dateNaissance;
-        $traitant->motpass=Hash::make($request->motpass);
-        $traitant->email=$request->email;
-        $traitant->numTel=$request->numTel;
-        $traitant->address=$request->address;
-        $traitant->specialiste=$request->specialiste;
         $names[0] = $request->prenom;
-        $names[1] = $request->nom ;
+        $names[1] = $request->nom;
         $user->name= implode(" ", $names);
         $user->email=$request->email;
         $user->image=$file;
         $user->password=Hash::make($request->motpass);
         $user->usertype="traitant";
-        $traitant->save();
         $user->save();
-        //Session::flash('success', 'تمت عملية الاضافة بنجاح ');
+        $requestData=$request->all();
+        for($i=1;$i<=1;$i++) {
+            $traitant = new Traitant();
+            $traitant->image = $file;
+            $traitant->prenom = $requestData['prenom'];
+            $traitant->nom =  $requestData['nom'];
+            $traitant->dateNaissance =$requestData['dateNaissance'];
+            $traitant->motpass = $requestData['motpass'];
+            $traitant->email = $requestData['email'];
+            $traitant->numTel =$requestData['numTel'];
+            $traitant->address = $requestData['address'];
+            $traitant->specialiste =$requestData['specialiste'];
+            $user->traitants()->save( $traitant);
+        }
 
+
+        //Session::flash('success', 'تمت عملية الاضافة بنجاح ');
         return redirect()->route('admin.traitants.index')->with('success','تمت عملية الاضافة بنجاح ');
 
     }
@@ -118,9 +123,10 @@ class TraitantsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Traitant $traitant)
-    {
-
+    public function update(Request $request,  $id_traitant)
+    {   $traitant=Traitant::find($id_traitant);
+        $UserTraitant=$traitant->user_id;
+        $user3=User::find($UserTraitant);
         if(isset($request->image) && $request->image->getClientOriginalName()){
             $ext =  $request->image->getClientOriginalExtension();
             $file = date('YmdHis').rand(1,99999).'.'.$ext;
@@ -133,6 +139,7 @@ class TraitantsController extends Controller
             else
                 $file = $traitant->image;
         }
+
         $traitant->image=$file;
         $traitant->prenom=$request->prenom;
         $traitant->nom=$request->nom;
@@ -142,7 +149,15 @@ class TraitantsController extends Controller
         $traitant->numTel=$request->numTel;
         $traitant->address=$request->address;
         $traitant->specialiste=$request->specialiste;
+        //$traitant->save();
+        $names1[0] = $request->prenom;
+        $names1[1] = $request->nom;
+        $user3->image=$file;
+        $user3->name=implode(" ", $names1);
+        $user3->email=$request->email;
+        $user3->password=Hash::make($request->motpass);
         $traitant->save();
+        $user3->save();
         return redirect()->route('admin.traitants.index')->with('success','تمت عملية التعديل بنجاح ');
 
     }
@@ -153,11 +168,15 @@ class TraitantsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id_traitant)
+    public function destroy(Request $request)
     //public function destroy(Traitant $traitant)
     {
-       Traitant::destroy($id_traitant);
-        //$traitant->delete();
+     //  Traitant::destroy($id_traitant);
+        $traitant = Traitant::findOrFail($request->id_traitant);
+        $userTraitant=$traitant->user_id;
+        $Usertraitant =User::findOrFail( $userTraitant);
+        $Usertraitant->delete(); $traitant->delete();
+
         return redirect()->route('admin.traitants.index')->with('success','تمت عملية الحذف بنجاح ');
     }
 }

@@ -151,8 +151,14 @@ return [
         /*
          * Package Service Providers...
          */
-        Laravel\Tinker\TinkerServiceProvider::class,
+        /*
+        * Package Service Providers...
+        */
+        //zidtha
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
+        Laravel\Tinker\TinkerServiceProvider::class,
+        //Laravel\Passport\PassportServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -161,7 +167,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -213,7 +221,16 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
+
+
+    /*
+        * Package Facades...
+        */
+    'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+    'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
 
 ];

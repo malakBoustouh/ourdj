@@ -15,6 +15,7 @@ class CreateCarsspecialistesTable extends Migration
     {
         Schema::create('carsspecialistes', function (Blueprint $table) {
             $table->bigIncrements('id_carsspecialiste');
+            $table->unsignedBigInteger('user_id');
             $table->string('nom');
             $table->string('prenom');
             $table->Date('dateNaissance');
@@ -25,6 +26,8 @@ class CreateCarsspecialistesTable extends Migration
             $table->string('specialite');
             $table->string('image');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')
+                ->on('users')->onDelete('cascade');
         });
     }
 

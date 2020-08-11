@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('title','| تسجيل مشخص')
 @section('content')
+
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
