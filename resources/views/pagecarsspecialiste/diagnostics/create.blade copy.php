@@ -3,6 +3,52 @@
 @section('title','| تشخيص')
 
 @section('content')
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>تشخيص</title>
+        <script src="{{ asset('http://code.jquery.com/jquery-latest.min.js')}}"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(".minimal").click(function(event) {
+                    var total = 0;
+                    $(".minimal:checked").each(function() {
+                        total += parseFloat($(this).val());
+                    });
+
+                    if (total == 0) {
+                        $('#points').val('');
+                    } else {
+                        $('#points').val(total);
+                    }
+                });
+            });
+        </script>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{ asset('plugins/font-awesome/css/font-awesome.min.css')}}">
+        <!-- Ionicons -->
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('dist/css/bootstrap-rtl.min.css')}}">
+        <!-- template rtl version -->
+        <link rel="stylesheet" href="{{ asset('dist/css/custom-style.css')}}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{ asset('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')}}">
+        <script src="{{ asset('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')}}"></script>
+        <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js')}}"></script>
+        <script src="{{ asset('https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js')}}"></script>
+        <link href="{{ asset('https://fonts.googleapis.com/css2?family=Tajawal&display=swap')}}" rel="stylesheet">
+
+        <link rel="stylesheet" href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css')}}">
+        <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js')}}"></script>
+    </head>
+
+
+
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -11,11 +57,11 @@
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-        {{-- <form method="post" action="{{route('pagespecialiste.diagnostics.store')}}" enctype="multipart/form-data"> --}}
-            {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> --}}
 
-            @csrf
-            <!-- Main content -->
+        <form method="post" action="{{route('pagecarsspecialiste.diagnostics.store')}}" enctype="multipart/form-data">
+
+
+        <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
                     <!-- left column -->
@@ -37,36 +83,23 @@
                                 <div class="col-md-6">
                                     <div class="form-group" >
                                         <label>اللقب و الإسم:</label>
+
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fa fa-child"></i></span>
                                             </div>
 
-                                            <select   class="form-control" style="width: 470px" id="named" name="enfant_id" >
+                                            <select   class="form-control" style="width: 463px" id="named" name="enfant_id" >
                                                 <option ></option>
                                                 @foreach($enfants as $enfant)
                                                     <option  value="{{$enfant->id_enfant}}">{{$enfant->prenom}} {{$enfant->nom}}</option>
+                                                    <option id="birthday" value="{{$enfant->dateNaissance}}" hidden ></option>
                                                 @endforeach
                                             </select>
 
                                         </div>
                                     </div>
-                                    <div class="form-group">
 
-                                        <label>تاريخ الميلاد  :</label>
-
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                                            </div>
-                                            <select   class="form-control" style="width: 466.5px" id="birthday" name="enfa_id" >
-                                                <option ></option>
-                                                @foreach($enfants as $enfant)
-                                                    <option  value="{{$enfant->id_enfant}}" >{{$enfant->dateNaissance}} </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="form-group">
 
                                         <label> المشرفة  :</label>
@@ -76,10 +109,10 @@
                                                 <span class="input-group-text"><i class="fa fa-user"></i></span>
                                             </div>
 
-                                            <select   style="width: 468px" id="nametrait" name="trait" >
+                                            <select   style="width: 460px" id="nametrait" name="trait" >
                                                 <option ></option>
                                                 @foreach($carsspecialistes as $trait)
-                                                    <option value="{{$trait->id_carsspecialiste}}" >{{$trait->nom}} {{$trait->prenom}} {{$trait->id_carsspecialiste}}</option>
+                                                    <option value="{{$trait->id_carsspecialiste}}" >{{$trait->nom}} {{$trait->prenom}}</option>
                                                 @endforeach
                                             </select>
 
@@ -97,10 +130,12 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                             </div>
-                                            <input type="date" class="form-control" name="date" id="dateD" readonly value="{{$dateActuelle}}">
+                                            <input type="date" class="form-control" id="date" name="date" readonly value="{{$dateActuelle}}">
 
                                         </div>
+
                                     </div>
+
                                     <div class="form-group">
 
                                         <label > النتيجة  :</label>
@@ -137,6 +172,7 @@
                                     <div class="form-group">
                                         <label class="container">
                                             <input type="radio" name="r1"  class="minimal" value="1">
+                                            <input type="radio"  class="minimal" value="لا يوجد أي دلالة أو صعوبة في التعامل مع الآخرين." name="لا يوجد أي دلالة أو صعوبة في التعامل مع الآخرين." hidden>
                                             <span class="input-label" >لا يوجد أي دلالة أو صعوبة في التعامل مع الآخرين.</span>
                                             <span class="checkmark"></span>
                                         </label>
@@ -152,6 +188,7 @@
                                     <div class="form-group">
                                         <label class="container">
                                             <input type="radio" name="r1" class="minimal" value="2" >
+                                            <input type="radio" class="minimal" value="علاقات غير عادية بدرجة بسيطة." name="علاقات غير عادية بدرجة بسيطة." hidden>
                                             <span class="input-label">علاقات غير عادية بدرجة بسيطة.</span>
                                             <span class="checkmark"></span>
                                         </label>
@@ -167,6 +204,7 @@
                                     <div class="form-group">
                                         <label class="container">
                                             <input type="radio" name="r1"  class="minimal" value="3" >
+                                            <input type="radio"   class="minimal" value="علاقات غير عادية بدرجة متوسطة." name="علاقات غير عادية بدرجة متوسطة." hidden >
                                             <span class="input-label"  >علاقات غير عادية بدرجة متوسطة.</span>
                                             <span class="checkmark"></span>
                                         </label>
@@ -1276,7 +1314,19 @@
 
                             <button type="submit" class="result" value="Submit">المجموع</button>
                             <input type="text" name="points" id="points" disabled />
-                            <button type="submit" id="degree" class="saveresult" value="Submit"> حفظ</button>
+
+
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                {{ csrf_field() }}
+
+
+
+                                <button type="submit" id="degree" class="saveresult" value="form"> حفظ</button>
+
+
+
+
+
 
                         </div>
                     </div>
@@ -1285,8 +1335,13 @@
             </section>
 
             <!-- /.content -->
-        {{-- </form> --}}
+        </form>
+        <button type="submit" id="degree" value="Submit" >عرض النتيجة</button>
+
+
     </div>
+
+
 
     <div class="modal fade" id="#degree1">
         <div class="modal-dialog modal-sm">
@@ -1313,7 +1368,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    أعراض متوسطة من إضطراف طيف التوحد
+                    أعراض متوسطة من إضطراب طيف التوحد
                 </div>
                 <div class="modal-footer">
                 </div>
@@ -1329,7 +1384,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    أعراض شديدة من إضطراف طيف التوحد
+                    أعراض شديدة من إضطراب طيف التوحد
                 </div>
                 <div class="modal-footer">
                 </div>
@@ -1358,7 +1413,9 @@
                 <div class="modal-header">
                     <h4 class="modal-title" >النتيجة</h4>
                     <button type="button" class="exit" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+
                     </button>
+
                 </div>
                 <div class="modal-body">
                     لا توجد أعراض إضطراب التوحد
@@ -1368,38 +1425,17 @@
             </div>
         </div>
     </div>
-    <script >
 
-        $(".minimal").click(function(event) {
-                    var total = 0;
-                    $(".minimal:checked").each(function() {
-                        total += parseFloat($(this).val());
-                    });
 
-                    if (total == 0) {
-                        $('#points').val('');
-                    } else {
-                        $('#points').val(total);
-                    }
-                });
+    <script>
 
         $('#degree').click(function() {
-            console.log("vcbxcvbxcvb");
-
-
-
             var points = $('#points').val();
-            var birthday = new Date($('#birthday').val());
-            /* var birthday = b.getFullYear();
+            var b = new Date($('#birthday').val());
+            var birthday = b.getFullYear();
             var d = new Date();
-            var year = d.getFullYear(); */
-
-            var ageDifMs = Date.now() - birthday;
-            var ageDate = new Date(ageDifMs); // miliseconds from epoch
-
-            var age = Math.abs(ageDate.getUTCFullYear() - 1970);
-
-            console.log(points);
+            var year = d.getFullYear();
+            var age = year-birthday;
 
             if (age<13){
                 if (points > 15 && points <= 29.5 ) {
@@ -1449,132 +1485,10 @@
                     }
                 }
             }
-
-            submitForm();
         });
-
-        function submitForm() {
-            var responses =[];
-            var questions =[];
-            var remarques =[];
-            //radio input remarque15
-            $("input[type='radio']:checked").each(function () {
-                var reponse=new Object();
-                console.log($(this).siblings().text());
-                reponse.value=$(this).val();
-                reponse.name=$(this).attr("name");
-                reponse.rText=$(this).siblings('.input-label').text();
-                responses.push(reponse);
-            });
-            //infos inputs
-            $(".card-header input").each(function () {
-                var reponse=new Object();
-                reponse.value=$(this).val();
-                reponse.name=$(this).attr("name");
-                questions.push(reponse);
-            });
-
-            //infos inputs
-            $(".remarquearea").each(function () {
-                var reponse=new Object();
-                reponse.value=$(this).val();
-                reponse.name=$(this).attr("name");
-                remarques.push(reponse);
-            });
-            /* data.push($("input._token").val()); */
-            console.log(questions);
-            console.log(responses);
-            console.log(remarques);
-            sendData(responses, questions, remarques);
-        }
-
-        function sendData(responses, questions, remarques) {
-             /* var token =  $('input[name="_token"]').val();
-            $.ajaxSetup({
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader('_token', token);
-                }
-            }); */
-            /* var jsonString=JSON.stringify(data);
-            console.log(jsonString); */
-            $.ajax({
-                type:"POST",
-                url:"/pagecarsspecialiste/diagnostics/store",
-                data: {
-                    responses : JSON.stringify(responses),
-                    questions : JSON.stringify(questions),
-                    remarques : JSON.stringify(remarques),
-                    _token: "{{ csrf_token() }}",
-                    enfant_id: $("#named").val(),
-                    trait: $("#nametrait").val(),
-                    date: $("#dateD").val(),
-                    autismresult: $("#autismresult").val(),
-                },
-                cache:false,
-                success: function () {
-                    alert("ok");
-
-                },
-                error: function (request,status,error) {
-                    console.log(request);
-                    console.log(error);
-                }
-            });}
-
     </script>
 
-    <script>
-        /* $('.saveresult').click(function (e) {
-            e.preventDefault();
-            submitForm();
 
-        }); */
-        /* function submitForm() {
-            var data =[];
-            //radio input
-            $("input[type='radio']:checked").each(function () {
-                var reponse=new Object();
-                reponse.value=$(this).val();
-                reponse.name=$(this).attr("name");
-                reponse.text=$(this).siblings('.input-label').text();
-                data.push(reponse);
-            });
-            //infos inputs
-            $("input[type!='radio']").each(function () {
-                var reponse=new Object();
-                reponse.value=$(this).val();
-                reponse.name=$(this).attr("name");
-                data.push(reponse);
-            });
-            console.log(data);
-            // sendData(data);
-        }
-
-        function sendData(data) {
-            var jsonString=JSON.stringify(data);
-            $.ajax({
-                type:"POST",
-                url:"/pagecarsspecialiste/diagnostics",
-                @csrf
-
-
-                data: {data : jsonString},
-                cache:false,
-                success: function () {
-                    alert("ok");
-
-                },
-                error: function (request,status,error) {
-                    console.log(request);
-                    console.log(error);
-                }
-            });}
-
- */
-
-
-
-    </script>
 
     <!-- select -->
     <script type="text/javascript">
@@ -1606,12 +1520,12 @@
         });
     </script>
 
+
     <!-- select-->
     <!-- jQuery UI 1.11.4 -->
-    <script src="{{asset('https://code.jquery.com/ui/1.12.1/jquery-ui.min.js')}}"></script>
+    <script src="{{ asset('https://code.jquery.com/ui/1.12.1/jquery-ui.min.js')}}"></script>
     <!-- AdminLTE App -->
-    <script src="{{asset('dist/js/adminlte.js')}}"></script>
-
+    <script src="{{ asset('dist/js/adminlte.js')}}"></script>
 
 
 @endsection

@@ -15,8 +15,8 @@
 
 Auth::routes();
 Route::get('/', function () {
-        return view('welcome');
-    });
+    return view('welcome');
+});
 ////////////////////////////interface/////////////////////////////////////////
 ///
 Route::get('/admin/interface/addchild', 'HomeController@index')->name('addchild');
@@ -30,26 +30,27 @@ Route::get('/admin/interfaceaddspecialiste/addspecialiste', 'AddspecialisteContr
 
 Route::get('/admin', 'HomeController@index')->name('home');
 //Route::resource('/admin/chart', 'Admin\CharrtController',['as'=>'admin']);
-Route::get('/admin/chart', 'Admin\CharrtController@index',['as'=>'admin'])->name('chart.index');
-Route::resource('/admin/traitants','Admin\TraitantsController',['as'=>'admin']);
-Route::resource('/admin/enfants','Admin\EnfantController',['as'=>'admin']);
-Route::get   ('/admin/parentts/{enfant}/edit', 'Admin\EnfantController@edit')->name('admin.enfants.edit');
-Route::get   ('/admin/carsSpecialistes/{carsspecialiste}/edit', 'Admin\CarsspecialisteController@edit')->name('admin.carsSpecialistes.edit');
+Route::get('/admin/chart', 'Admin\CharrtController@index', ['as' => 'admin'])->name('chart.index');
+Route::resource('/admin/traitants', 'Admin\TraitantsController', ['as' => 'admin']);
+Route::resource('/admin/enfants', 'Admin\EnfantController', ['as' => 'admin']);
+Route::get('/admin/parentts/{enfant}/edit', 'Admin\EnfantController@edit')->name('admin.enfants.edit');
+Route::get('/admin/carsSpecialistes/{carsspecialiste}/edit', 'Admin\CarsspecialisteController@edit')->name('admin.carsSpecialistes.edit');
 //Route::get   ('/admin/carsSpecialistes/{carsspecialiste}', 'Admin\CarsspecialisteController@update')->name('admin.carsSpecialistes.update');
-Route::resource('/admin/carsSpecialistes', 'Admin\CarsspecialisteController',['as'=>'admin']);
-Route::resource('/admin/enfants', 'Admin\EnfantController',['as'=>'admin']);
-Route::resource('/admin/applications', 'Admin\ExerciceController',['as'=>'admin']);
+Route::resource('/admin/carsSpecialistes', 'Admin\CarsspecialisteController', ['as' => 'admin']);
+Route::resource('/admin/enfants', 'Admin\EnfantController', ['as' => 'admin']);
+Route::resource('/admin/applications', 'Admin\ExerciceController', ['as' => 'admin']);
 ///////////////////////////////////////////////////////
 /// ///////////////////////////////pour SPECIALISTE////////////////////////////////////////
 Route::get('/pagecarsspecialiste', 'carsSpecialiste\DiagnosticController@create')->name('pagecarsspecialiste');
-Route::resource('/pagecarsspecialiste/parentts','carsSpecialiste\ParenttController',['as'=>'pagecarsspecialiste']);
+Route::resource('/pagecarsspecialiste/parentts', 'carsSpecialiste\ParenttController', ['as' => 'pagecarsspecialiste']);
 Route::get('/pagecarsspecialiste/diagnostics/create', 'carsSpecialiste\DiagnosticController@create')->name('pagecarsspecialiste');
 Route::get('/pagecarsspecialiste/diagnostics/affiche/{id_enfant}', 'CarsSpecialiste\DiagnosticController@affiche')->name('pagecarsspecialiste.affiche');
 Route::get('/pagecarsspecialiste/diagnostics/show/{id}', 'carsSpecialiste\DiagnosticController@show')->name('pagecarsspecialiste.show');
 Route::post('/pagecarsspecialiste/diagnostics/storeAffiche', 'carsSpecialiste\DiagnosticController@storeAffiche')->name('pagecarsspecialiste.storeAffiche');
 //Route::get('/pagecarsspecialiste/diagnostics/action', 'carsSpecialiste\DiagnosticController@action')->name('live_search.action');
 //Route::get('/pagecarsspecialiste/diagnostics/pdf', 'carsSpecialiste\DiagnosticController@pdf');
-Route::resource('/pagecarsspecialiste/diagnostics','carsSpecialiste\DiagnosticController',['as'=>'pagecarsspecialiste']);
+Route::resource('/pagecarsspecialiste/diagnostics', 'carsSpecialiste\DiagnosticController', ['as' => 'pagecarsspecialiste']);
+Route::post('/pagecarsspecialiste/diagnostics/store', 'carsSpecialiste\DiagnosticController@store');
 
 /////////////////////////////////////////////////////////////////////////////////////////
 /// ///////////////////////////////pour TRAITANT////////////////////////////////////////
@@ -59,8 +60,8 @@ Route::get('/pagetraitant/seancetraitements/show2/{id_enfant}', 'Traitant\Seance
 Route::get('/pagetraitant/seancetraitements/traite/{id}', 'Traitant\SeancetraitementController@traite')->name('pagetraitant.traite');
 Route::get('/pagetraitant/seancetraitements/affihe/{idF}', 'Traitant\SeancetraitementController@affiche')->name('affiche');
 //Route::resource('pagetraitant','SeancetraitementController', array('only' => array('index','create','store','dossier')));
-Route::resource('/pagetraitant/seancetraitements','Traitant\SeancetraitementController',['as'=>'pagetraitant']);
-Route::resource('/pagetraitant/traitants','Traitant\TraitantsController',['as'=>'pagetraitant']);
+Route::resource('/pagetraitant/seancetraitements', 'Traitant\SeancetraitementController', ['as' => 'pagetraitant']);
+Route::resource('/pagetraitant/traitants', 'Traitant\TraitantsController', ['as' => 'pagetraitant']);
 //Route::resource('/pagetraitant/seancetraitements','Traitant\SeancetraitementController',['as'=>'pagetraitant']);
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////Route::get('/admin/addchild', 'HomeController@index');
